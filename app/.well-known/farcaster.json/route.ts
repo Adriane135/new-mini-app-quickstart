@@ -1,6 +1,10 @@
 import { withValidManifest } from "@coinbase/onchainkit/minikit";
-import { minikitConfig } from "../../../minikit.config";
+import { minikitConfig } from "@/minikit.config"; // adjust path if needed
 
 export async function GET() {
-  return Response.json(withValidManifest(minikitConfig));
+  const manifest = withValidManifest(minikitConfig);
+  return Response.json({
+    ...manifest,
+    baseBuilder: minikitConfig.baseBuilder, // ensure top-level
+  });
 }
